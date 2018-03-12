@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>jacky.maven.demo</display-name>
+
+	<!-- 区分项目名称，防止默认重名,在tomcat下部署两个或多个项目时，web.xml文件中最好定义webAppRootKey参数，如果不定义，将会缺省为“webapp.root” -->
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<!-- 可以用System.getProperty("webapp.root")来动态获项目的运行路径。 一般返回结果例如：E:\Workspace\Java\SpringMvc\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\项目名 -->
+		<param-value>webapp.root</param-value>
+	</context-param>
+	<!-- ContextLoaderListener监听器 一般会加载整个Spring容器相关的bean配置管理/IOC注入(如: Log, Service, 
+		Dao, PropertiesLoader, etc.) -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+		classpath:jconfig.xml
+		classpath:spring-security.xml
+		classpath:spring-session.xml
+		classpath:spring-mvc.xml
+		classpath:mongodb-context.xml
+		</param-value>
+	</context-param>
+
+	<!-- SpringSecurity必须的filter 表示项目中所有路径的资源都要经过SpringSecurity webmvc 和 springboot 
+		security的区别是，springboot简化了配置，可以用代码解决，而webmvc最好还是用配置方案,
+		作为全局的 Filter 对所有的请求进行过滤，并在其层次之下实现 Spring Security 所提供的特有的 Filter -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Spring的log4j监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<!-- classpath 是target/classes文件夹路径，编译时，所有的资源文件xml都会编译到target/classes目录下https://www.cnblogs.com/aiugu/p/6081989.html -->
+		<param-value>classpath:log4j.xml</param-value>
+	</context-param>
+	<!-- 字符集 过滤器 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<!-- SpringSession的Filter，用于Session持久化操作 -->
+	<filter>
+		<filter-name>springSessionRepositoryFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSessionRepositoryFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+	<session-config>
+		<!-- SESSION有效期设置为24*60分钟，这里的单位是分钟-->
+		<session-timeout>1440</session-timeout>
+	</session-config>
+
+	<!-- <filter> <filter-name>CorsFilter</filter-name> <filter-class>org.apache.catalina.filters.CorsFilter</filter-class> 
+		<init-param> <param-name>cors.allowed.origins</param-name> <param-value>*</param-value> 
+		</init-param> <init-param> <param-name>cors.allowed.methods</param-name> 
+		<param-value>GET,POST,HEAD,OPTIONS,PUT</param-value> </init-param> <init-param> 
+		<param-name>cors.allowed.headers</param-name> <param-value>Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers</param-value> 
+		</init-param> <init-param> <param-name>cors.exposed.headers</param-name> 
+		<param-value>Access-Control-Allow-Origin,Access-Control-Allow-Credentials</param-value> 
+		</init-param> <init-param> <param-name>cors.support.credentials</param-name> 
+		<param-value>false</param-value> </init-param> <init-param> <param-name>cors.preflight.maxage</param-name> 
+		<param-value>10</param-value> </init-param> </filter> <filter-mapping> <filter-name>CorsFilter</filter-name> 
+		<url-pattern>/*</url-pattern> </filter-mapping> -->
+
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<!-- 最终访问 servlet-class 标签中的 class -->
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<!-- .classpath:只能加载找到的第一个文件,classpath为编译后的target目录，*.xml将会自动你复制过去 -->
+			<param-value>classpath:applicationContext.xml</param-value>
+			<!-- <param-value>/WEB-INF/dispatcher-servlet.xml</param-value> -->
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>

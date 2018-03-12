@@ -1,0 +1,170 @@
+[
+	{
+		"code": "1001",
+		"parentCode": "",
+		"title": "Monitor Center",
+		"icon": "",
+		"url": "/?curr_nav=1001",
+		"type": 0,
+		"target": 0,
+		"child": [
+			{
+				"code": "100101",
+				"parentCode": "1001",
+				"title": "Monitor Center",
+				"icon": "",
+				"url": "javascript:;",
+				"type": 1,
+				"target": 0,
+				"child": [
+					{
+						"code": "10010101",
+						"parentCode": "100101",
+						"title": "Monitor Center",
+						"icon": "",
+						"url": "monitor/",
+						"type": 1,
+						"target": 0,
+						"child": []
+					}
+				]
+			},
+			{
+				"code": "100102",
+				"parentCode": "1001",
+				"title": "Monitor xxx",
+				"icon": "",
+				"url": "javascript:;",
+				"type": 1,
+				"target": 0,
+				"child": [
+					{
+						"code": "10010201",
+						"parentCode": "100102",
+						"title": "Monitor xxx",
+						"icon": "",
+						"url": "monitor/",
+						"type": 1,
+						"target": 0,
+						"child": []
+					},
+					{
+						"code": "10010202",
+						"parentCode": "100102",
+						"title": "Monitor yyy",
+						"icon": "",
+						"url": "monitor/",
+						"type": 1,
+						"target": 0,
+						"child": []
+					}
+				]
+			}
+		]
+	},
+	{
+		"code": "1002",
+		"parentCode": "",
+		"title": "Member Center",
+		"icon": "",
+		"url": "/?curr_nav=1002",
+		"type": 0,
+		"target": 0,
+		"child": [
+			{
+				"code": "100201",
+				"parentCode": "1002",
+				"title": "Member Center",
+				"icon": "",
+				"url": "javascript:;",
+				"type": 1,
+				"target": 0,
+				"child": [
+					{
+						"code": "10020101",
+						"parentCode": "100201",
+						"title": "Member Center",
+						"icon": "",
+						"url": "member/",
+						"type": 1,
+						"target": 0,
+						"child": []
+					}
+				]
+			}
+		]
+	},
+	{
+		"code": "1003",
+		"parentCode": "",
+		"title": "Technology",
+		"icon": "",
+		"url": "javascript:;",
+		"type": 0,
+		"target": 0,
+		"child": [
+			{
+				"code": "100301",
+				"parentCode": "1003",
+				"title": "Test",
+				"icon": "",
+				"url": "/?curr_nav=100301",
+				"type": 0,
+				"target": 0,
+				"child": []
+			},
+			{
+				"code": "100304",
+				"parentCode": "1003",
+				"title": "XXXXXXXXXXXX",
+				"icon": "",
+				"url": "/?curr_nav=100304",
+				"type": 0,
+				"target": 0,
+				"child": [
+					{
+						"code": "10030401",
+						"parentCode": "100304",
+						"title": "Monitor Center",
+						"icon": "",
+						"url": "javascript:;",
+						"type": 1,
+						"target": 0,
+						"child": [
+							{
+								"code": "1003040101",
+								"parentCode": "10030401",
+								"title": "P-Admin",
+								"icon": "",
+								"url": "technical/",
+								"type": 1,
+								"target": 0,
+								"child": []
+							},
+							{
+								"code": "1003040102",
+								"parentCode": "10030401",
+								"title": "J-Admin",
+								"icon": "",
+								"url": "technical/",
+								"type": 1,
+								"target": 0,
+								"child": []
+							},
+							{
+								"code": "1003040103",
+								"parentCode": "10030401",
+								"title": "Push Notification",
+								"icon": "",
+								"url": "push_notice/",
+								"type": 1,
+								"target": 0,
+								"child": []
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+]
